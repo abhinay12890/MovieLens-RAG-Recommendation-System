@@ -1,4 +1,4 @@
-# Retrieval-Augmented-Movie-Recommendation-System-NLP-FAISS-LLM
+# MovieLens-RAG-Recommendation-System
 
 ## Project Overview
 This project focuses on building a movie recommendation engine using the MovieLens dataset. The system combines NLP preprocessing, sentence transformer embeddings, FAISS similarity search and Retrieval-Augmented Generation (RAG) pipeline with an LLM.
