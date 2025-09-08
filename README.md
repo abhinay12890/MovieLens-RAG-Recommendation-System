@@ -44,7 +44,7 @@ The goal is to provide natural-language movie recommendations while avoiding hal
 4. Retrieved movie metadata injected as context into an LLM prompt.
 5. LLM outputs recommendations in descending order of avg_rating, strictly using retrieved context.
 
-Input Query: "Recommend a sci-fi action movie with time travel."
-Retrieved Movies: 
+Input Query: "Recommend a sci-fi action movie with time travel."\
+Retrieved Movies: \
 [ID: 123] Sync (2014) | Genres: Action, Sci-Fi | AvgRating: 4.17 | Tags: scifi chase
 [ID: 456] Primer (2004) | Genres: Sci-Fi, Thriller | AvgRating: 3.95 | Tags: time-loop mind-bending
