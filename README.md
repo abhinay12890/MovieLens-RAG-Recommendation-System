@@ -6,8 +6,7 @@ The goal is to provide natural-language movie recommendations while restricting 
 
 ---
 ## Dataset
-- **Source:** [MovieLens- ml-latest.zip](https://grouplens.org/datasets/movielens/latest/) contains files
-- `genome-scores.csv`,`genome-tags.csv`,`links.csv`,`movies.csv`,`ratings.csv`,`tags.csv` along with **README** file containing information about the csv files.
+- **Source:** [MovieLens- ml-latest.zip](https://grouplens.org/datasets/movielens/latest/) contains files `genome-scores.csv`,`genome-tags.csv`,`links.csv`,`movies.csv`,`ratings.csv`,`tags.csv` along with **README** file containing information about the csv files.
 - **Size:** 50k+ movie titles (after merging all csv files)
 - **Features:**
   -  Movie metadata (title,genres,tags)
