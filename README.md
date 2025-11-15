@@ -13,14 +13,19 @@ The goal is to provide natural-language movie recommendations while restricting 
   -  Aggregated average rating (per movie)
   -  User-generated tag relevance scores
 ---
-## Data Preprocessing
+## Data Preprocessing & Cleaning
 - Merged `movies`,`ratings`, and `tags` by `movieId`.
 - Aggregated rating by averaging across users.
 - Combined & deduplicated tags for each movie.
 - Pre-processsing steps on text:
-  -  Tokenization
-  -  POS-tagged lemmatization (WordNet)
-  -  Removal of stopwords and punctuation
+  1. Regex-Based Tag Cleaning (re)
+     - remove URLs
+     - fixing spacing
+     - removing punctuation
+     - preserve apostrophes
+     - Remove non-ASCII noise
+     - Deduplicate tokens while keeping original order
+  2. Spacy based batched-tokenization
 - Constructed final documents with
   `title,genres,rating,tags`
 ---
@@ -46,6 +51,7 @@ The goal is to provide natural-language movie recommendations while restricting 
 - Embedding Model: Sentence Transformers (all-MiniLM-L6-v2).
 - Vector Index: IndexFlatL2
 - LLM: `llama-3.1-8b-instant` used in RAG pipeline.
+- Self-Evaluating LLM Recommendation system by comparing user query to retrived chunks to judge relevance and rate its own answer (1-5).
 ---
 ## Insights
 * Successfully integrated semantic search + ratings into ranking.
