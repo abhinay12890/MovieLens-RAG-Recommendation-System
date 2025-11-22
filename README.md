@@ -88,7 +88,7 @@ The goal is to provide natural-language movie recommendations while restricting 
   * Loads saved FAISS index
   * Loads HuggingFace embedding model
   * Performs retrieval + deduplication
-  * Uses Groq LLM for response generation
+  * Uses Gemini-2.5-Flash Model for LLM Output
 ---
 ## Insights
 * Chunk-level tag embeddings drastically improve semantic retrieval.
