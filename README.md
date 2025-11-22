@@ -1,7 +1,13 @@
 # MovieLens-RAG-Recommendation-System
 
 ## Project Overview
-This project focuses on building a movie recommendation engine using the MovieLens dataset. The system combines NLP preprocessing, sentence transformer embeddings, FAISS similarity search and Retrieval-Augmented Generation (RAG) pipeline with an LLM.
+This project focuses on building a movie recommendation engine using the MovieLens dataset. The system combined with:
+  - Regex + SpaCy based text preprocessing
+  - Sentence Transformer embeddings
+  - FAISS vector similarity search
+  - Chunk-level Retrieval-Augmented Generation (RAG)
+  - llama-3.1-8b-instant for natural-language recommendations
+  - Streamlit application for RAG.
 The goal is to provide natural-language movie recommendations while restricting outputs to retrived metadata.
 
 ---
@@ -34,10 +40,25 @@ The goal is to provide natural-language movie recommendations while restricting 
 - Ratings Histogram : Distribution of average ratings across movies.
 - Word Clouds: Generated separately for positive (≥3 rating) and negative (<3 rating) tags.
 ---
-## Feature Engineering & Indexing
-- Encoded final documents into embeddings using Sentence Transformers.
-- Built a FAISS index (cosine similarity with normalized vectors).
-- Stored metadata (movieId, title, genres, tags, avg_rating) linked to embeddings.
+## Chunking Strategy
+- To imporove retrieval quality and avoid context overflow
+  * only movie tags are chunked in the following structure
+    `chunk_text = (
+    f"Title: {row['title']}\n"
+    f"Genres: {row['genres']}\n"
+    f"Tags: {chunk}")`
+  * Storing metda data per chunk
+    `{
+    "movie_id": i,
+    "Title": row["title"],
+    "Genres": row["genres"],
+    "Rating": row["rating"],
+    "chunk_id": chunk_id}`
+    This ensures multiple tag chunks -> same movie
+
+## Vector embeddings & Indexing
+- Usage of Langchain's HuggingFace Embeddings with `all-MiniLM-L6-v2` model
+- Storing vectors through `langchain_community.vectorstores.FAISS` and saved index.
 - Implemented query → embedding → vector search → top-K retrieval.
 ---
 ## RAG + LLM Recommendation Pipeline
@@ -45,18 +66,26 @@ The goal is to provide natural-language movie recommendations while restricting 
 2. Query converted into an embedding.
 3. FAISS index retrieves top-K similar movies.
 4. Retrieved movie metadata injected as context into an LLM prompt.
-5. LLM outputs recommendations in descending order of avg_rating, strictly using retrieved context.
+5. LLM outputs recommendations in descending order of avg_rating, strictly using retrieved context. using `llama-3.1-8b-instant (via ChatGroq)`
 ---
-## Model Building
-- Embedding Model: Sentence Transformers (all-MiniLM-L6-v2).
-- Vector Index: IndexFlatL2
-- LLM: `llama-3.1-8b-instant` used in RAG pipeline.
-- Self-Evaluating LLM Recommendation system by comparing user query to retrived chunks to judge relevance and rate its own answer (1-5).
+## Output
+  * Top 7 unique movies
+  * Sorted by rating
+  * Summary based only on retrieved context
+---
+## Deployment
+- The complete RAG system is wrapped in Streamlit app:
+  * Loads saved FAISS index
+  * Loads HuggingFace embedding model
+  * Performs retrieval + deduplication
+  * Uses Groq LLM for response generation
 ---
 ## Insights
-* Successfully integrated semantic search + ratings into ranking.
-* FAISS indexing scales to 50k+ movies efficiently.
-* Preprocessing + deduplication reduced noise in tag data, improving retrieval quality.
+* Chunk-level tag embeddings drastically improve semantic retrieval.
+* Deduplication ensures LLM receives clean & unique movie entries.
+* FAISS enables scalable searching over 50k+ movies.
+* Regex + SpaCy cleaning significantly improves retrieval quality.
+* Strict “no hallucination” prompt ensures outputs remain grounded.
 ---
 ## Author
 **Abhinay Kalavakuri**
