@@ -8,7 +8,7 @@ import streamlit as st
 
 GOOGLE_API_KEY=st.secrets["google_api_key"]
 
-embeddings=HuggingFaceEmbeddings(model='sentence-transformers/all-mpnet-base-v2')
+embeddings=HuggingFaceEmbeddings(model='sentence-transformers/all-MiniLM-L6-v2')
 
 faiss_index=FAISS.load_local(folder_path='movielens_final_embeddings',embeddings=embeddings,allow_dangerous_deserialization=True)
 
