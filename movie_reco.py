@@ -41,17 +41,24 @@ for x in unique_movies:
 
 llm=ChatGoogleGenerativeAI(api_key=GOOGLE_API_KEY,model="gemini-2.5-flash")
 
-prompt=ChatPromptTemplate([
-    ("system","You are a helpful assistant\n"
-     "You will get a string of movies with movie titles, its genres and ratings\n"
-     "Your task is to provide top rated movies along with their movie title, genre and rating in descending order of their rating\n"
-     "Also generate summary of their movie plot of the received titles\n"
-     "Dont Hallicunate only provide Top- 7 rated movie titles based on received user string and generate summary plot based on the top movie titles\n"
-     "<string>"
-     "{string}"
-     "<string"),
-     ("user","{context}")
+prompt = ChatPromptTemplate.from_messages([
+    ("system",
+     "You are a helpful assistant.\n"
+     "You will receive a string containing movies with title, genres, and ratings.\n"
+     "Your task:\n"
+     "1. Extract the movies.\n"
+     "2. Sort them in descending order of rating.\n"
+     "3. Return ONLY the top 7 movies with title, genre, and rating.\n"
+     "4. For each of the top 7 movies, generate a short, factual summary.\n"
+     "5. Do NOT hallucinate — only use the titles provided.\n\n"
+     "Movies received:\n"
+     "{movies}"
+    ),
+    
+    ("user",
+     "User query: {query}")
 ])
+
 
 output=StrOutputParser()
 
