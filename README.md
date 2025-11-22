@@ -19,6 +19,16 @@ The goal is to provide natural-language movie recommendations while restricting 
   -  Aggregated average rating (per movie)
   -  User-generated tag relevance scores
 ---
+## File Structure 
+```
+├── movielens_final_embeddings            # directory containing stored faiss index
+├── MovieLens_RAG_Recommendation_System.ipynb   # Project code (EDA+ Data Cleaning+ Sample RAG)
+├── best_churn_model.pkl                  # Final Trained LightGBM model
+├── movie_reco.py                         # RAG based Streamlit application
+├── requirements.txt                      # List of dependencies for the project
+├── README.md                             # Project documentation (this file)
+```
+---
 ## Data Preprocessing & Cleaning
 - Merged `movies`,`ratings`, and `tags` by `movieId`.
 - Aggregated rating by averaging across users.
@@ -86,6 +96,10 @@ The goal is to provide natural-language movie recommendations while restricting 
 * FAISS enables scalable searching over 50k+ movies.
 * Regex + SpaCy cleaning significantly improves retrieval quality.
 * Strict “no hallucination” prompt ensures outputs remain grounded.
+---
+# Usage
+- `git clone this repository`
+- run `streamlit run movie_reco.py`
 ---
 ## Author
 **Abhinay Kalavakuri**
