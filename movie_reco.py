@@ -51,18 +51,19 @@ prompt = ChatPromptTemplate.from_messages([
      "3. Return ONLY the top 7.\n"
      "4. For each movie, follow this exact output format:\n\n"
      "FORMAT:\n"
-     "{Movie Title} | {Genres} | Rating: {Rating}\n"
-     "{2-3 factual summary lines about the movie plot based ONLY on existing knowledge}\n\n"
+     "{{Movie Title}} | {{Genres}} | Rating: {{Rating}}\n"
+     "{{2-3 factual summary lines about the movie plot based ONLY on existing knowledge}}\n\n"
      "Rules:\n"
      "- Do NOT hallucinate unknown movies.\n"
      "- Use only the titles provided.\n"
-     "- Keep summaries short, factual, and 2-3 lines long.\n"
+     "- Keep summaries short, factual, and 2-3 lines.\n"
      "- Do not repeat release years unless part of the title.\n\n"
      "Movies received:\n{movies}"
     ),
 
     ("user", "User query: {query}")
 ])
+
 
 
 
