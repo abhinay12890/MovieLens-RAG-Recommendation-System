@@ -43,26 +43,26 @@ llm=ChatGoogleGenerativeAI(api_key=GOOGLE_API_KEY,model="gemini-2.5-flash")
 
 prompt = ChatPromptTemplate.from_messages([
     ("system",
-     "You are a helpful assistant.\n"
-     "You will receive a list of movies with title, genre, and rating.\n"
+     "You will receive a list of movies with titles, genres, and ratings.\n"
      "Your tasks:\n"
-     "1. Extract all valid movie items.\n"
-     "2. Sort them by rating in descending order.\n"
-     "3. Return ONLY the top 7.\n"
-     "4. For each movie, follow this exact output format:\n\n"
-     "FORMAT:\n"
-     "{{Movie Title}} | {{Genres}} | Rating: {{Rating}}\n"
-     "{{2-3 factual summary lines about the movie plot based ONLY on existing knowledge}}\n\n"
+     "1. Extract all valid movie entries.\n"
+     "2. Sort them by rating (highest to lowest).\n"
+     "3. Return ONLY the top 7 movies.\n\n"
+     "OUTPUT FORMAT (STRICT):\n"
+     "• {{Movie Title}} — Rating: {{Rating}} — {{Genres}}\n"
+     "  {{2-3 short, factual summary lines about the movie}}\n\n"
      "Rules:\n"
-     "- Do NOT hallucinate unknown movies.\n"
-     "- Use only the titles provided.\n"
-     "- Keep summaries short, factual, and 2-3 lines.\n"
-     "- Do not repeat release years unless part of the title.\n\n"
+     "- FOLLOW THE BULLET FORMAT EXACTLY.\n"
+     "- Use a bullet (•) for each movie.\n"
+     "- Summary must be 2–3 lines.\n"
+     "- No extra commentary.\n"
+     "- No hallucinated movies.\n\n"
      "Movies received:\n{movies}"
     ),
 
     ("user", "User query: {query}")
 ])
+
 
 
 
