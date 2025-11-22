@@ -64,7 +64,7 @@ output=StrOutputParser()
 
 chain=prompt|llm|output
 
-response=chain.invoke({'string':context,"context":input_text})
+response=chain.invoke({'movies':context,"query":input_text})
 
 
 if input_text:
