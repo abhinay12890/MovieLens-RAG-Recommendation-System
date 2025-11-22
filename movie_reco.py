@@ -7,7 +7,7 @@ from langchain_core.prompts import ChatPromptTemplate
 import streamlit as st
 
 
-embeddings=HuggingFaceEmbeddings(model='sentence-transformers/all-mpnet-base-v2')
+embeddings=HuggingFaceEmbeddings(model='sentence-transformers/all-MiniLM-L6-v2')
 
 faiss_index=FAISS.load_local(folder_path='movielens_final_embeddings',embeddings=embeddings,allow_dangerous_deserialization=True)
 
