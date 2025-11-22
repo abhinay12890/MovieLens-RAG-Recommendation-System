@@ -6,6 +6,8 @@ from langchain_core.prompts import ChatPromptTemplate
 import streamlit as st
 
 
+GOOGLE_API_KEY=st.secrets["google_api_key"]
+
 embeddings=HuggingFaceEmbeddings(model='sentence-transformers/all-mpnet-base-v2')
 
 faiss_index=FAISS.load_local(folder_path='movielens_final_embeddings',embeddings=embeddings,allow_dangerous_deserialization=True)
@@ -37,7 +39,7 @@ for x in unique_movies:
 
 
 
-llm=ChatGoogleGenerativeAI(api_key=google_api,model="gemini-2.5-flash")
+llm=ChatGoogleGenerativeAI(api_key=GOOGLE_API_KEY,model="gemini-2.5-flash")
 
 prompt=ChatPromptTemplate([
     ("system","You are a helpful assistant\n"
