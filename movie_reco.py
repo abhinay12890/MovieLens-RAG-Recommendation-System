@@ -68,12 +68,6 @@ prompt = ChatPromptTemplate.from_messages([
     ("user", "User query: {query}")
 ])
 
-
-
-
-
-
-
 output=StrOutputParser()
 
 chain=prompt|llm|output
