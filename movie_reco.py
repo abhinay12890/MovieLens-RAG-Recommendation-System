@@ -74,9 +74,8 @@ if input_text:
     with st.spinner("Finding recommendations..."):
         response = chain.invoke({'movies': context, "query": input_text})
         st.write(response)
-
 else:
-    st.write("👈 Enter a topic above to see recommendations!")
+    pass
 
 footer = st.container()
 with footer:
