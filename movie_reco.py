@@ -50,25 +50,21 @@ prompt = ChatPromptTemplate.from_messages([
      "2. Sort them by rating (descending).\n"
      "3. Return ONLY the top 7.\n\n"
      "OUTPUT FORMAT (STRICT):\n"
-     "{{Movie Title}},\n"
-     "Genres: {{Genres}},\n"
-     "Rating: {{Rating}}\n"
-     "\n"
-     "{{2-3 short summary lines about the movie}}\n"
+     "{{Movie Title}} {{(Year)}} Genres: {{Genres}} Rating: {{Rating}}\n"
+     "{{2–3 short summary lines about the movie}}\n"
      "\n"
      "Rules:\n"
-     "- EACH movie must follow the exact block structure above.\n"
-     "- Title on its own line.\n"
-     "- Genres on a new line.\n"
-     "- Rating on a new line.\n"
+     "- Title, genres, and rating must be on ONE SINGLE LINE.\n"
      "- Summary MUST start on a new line.\n"
      "- Add ONE empty line after each movie.\n"
+     "- No commas after movie title.\n"
      "- No separators like dashes or bullets.\n"
      "- No hallucinations.\n\n"
      "Movies received:\n{movies}"
     ),
     ("user", "User query: {query}")
 ])
+
 
 output=StrOutputParser()
 
