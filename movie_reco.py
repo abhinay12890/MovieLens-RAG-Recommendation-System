@@ -19,13 +19,6 @@ st.caption("A movie recommendation system based on MovieLens dataset powered by 
 
 
 input_text=st.text_input(label="Describe Plot or Keywords")
-st.markdown("---")
-st.markdown(
-    "<div style='text-align: center; color: grey; font-size: 14px;'>"
-    "Developed by <b>Kalavakuri Abhinay</b>"
-    "</div>",
-    unsafe_allow_html=True
-)
 
 results=retriver.invoke(input_text)
 
@@ -60,6 +53,7 @@ prompt = ChatPromptTemplate.from_messages([
      "{{Movie Title}},\n"
      "Genres: {{Genres}},\n"
      "Rating: {{Rating}}\n"
+     "\n"
      "{{2-3 short summary lines about the movie}}\n"
      "\n"
      "Rules:\n"
@@ -85,3 +79,11 @@ response=chain.invoke({'movies':context,"query":input_text})
 
 if input_text:
     st.write(response)
+
+st.markdown("---")
+st.markdown(
+    "<div style='text-align: center; color: grey; font-size: 14px;'>"
+    "Developed by <b>Kalavakuri Abhinay</b>"
+    "</div>",
+    unsafe_allow_html=True
+)
