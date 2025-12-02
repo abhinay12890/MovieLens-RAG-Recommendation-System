@@ -44,28 +44,25 @@ llm=ChatGoogleGenerativeAI(api_key=GOOGLE_API_KEY,model="gemini-2.5-flash")
 
 prompt = ChatPromptTemplate.from_messages([
     ("system",
-     "You will receive a list of movies with titles, genres, and ratings.\n"
-     "Your task:\n"
-     "1. Extract all valid movies.\n"
-     "2. Sort them by rating (descending).\n"
-     "3. Return ONLY the top 7.\n\n"
+     "You are a strict data formatting engine. You will receive a list of movies.\n"
+     "Your task is to extract valid movies, sort by rating (descending), and return the top 7.\n\n"
 
-     "OUTPUT FORMAT (STRICT):\n"
-     "For each movie, you must output exactly three lines:\n"
-     "Line 1: {{Movie Title}} ({{Year}}) | Genres: {{Genres}} | Rating: {{Rating}}\n"
-     "Line 2: {{2–3 short summary lines}}\n"
-     "Line 3: (Empty Line)\n"
-     "\n"
+     "### OUTPUT RULES (CRITICAL)\n"
+     "1. **NO PREAMBLE OR FILLER:** Do not say 'Here are the movies', 'I found...', or explain your reasoning. Output ONLY the list.\n"
+     "2. **NEWLINE ENFORCEMENT:** The summary MUST be on its own line. Do not append it to the rating.\n"
+     "3. **FORMATTING:** Use ' | ' as a separator for metadata.\n\n"
 
-     "CRITICAL FORMATTING RULES:\n"
-     "- METADATA SEPARATORS: Use a vertical bar ' | ' to separate Title, Genres, and Rating.\n"
-     "- NEWLINE ENFORCEMENT: The summary MUST NOT appear on Line 1. It must start on Line 2.\n"
-     "- No commas after the movie title.\n"
-     "- No hallucinations.\n\n"
+     "### REQUIRED FORMAT EXAMPLE\n"
+     "You must follow this exact pattern:\n\n"
+     "Titanic (1997) | Genres: Romance Drama | Rating: 7.8\n"
+     "A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic.\n\n"
+     "The Matrix (1999) | Genres: Action Sci-Fi | Rating: 8.7\n"
+     "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.\n\n"
+     "(End of Example)\n\n"
 
-     "Movies received:\n{movies}"
+     "Now, process the following movies:\n{movies}"
     ),
-    ("user", "User query: {query}")
+    ("user", "{query}")
 ])
 
 
