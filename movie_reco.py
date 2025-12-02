@@ -16,6 +16,9 @@ retriver=faiss_index.as_retriever(search_kwargs={"k":50})
 
 st.title("Movie Recommendation Engine")
 st.caption("A movie recommendation system based on MovieLens dataset powered by Gemini")
+
+
+input_text=st.text_input(label="Describe Plot or Keywords")
 st.markdown("---")
 st.markdown(
     "<div style='text-align: center; color: grey; font-size: 14px;'>"
@@ -23,8 +26,6 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
-
-input_text=st.text_input(label="Describe Plot or Keywords")
 
 results=retriver.invoke(input_text)
 
