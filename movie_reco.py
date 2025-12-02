@@ -16,6 +16,13 @@ retriver=faiss_index.as_retriever(search_kwargs={"k":50})
 
 st.title("Movie Recommendation Engine")
 st.caption("A movie recommendation system based on MovieLens dataset powered by Gemini")
+st.markdown("---")
+st.markdown(
+    "<div style='text-align: center; color: grey; font-size: 14px;'>"
+    "Developed by <b>Kalavakuri Abhinay</b>"
+    "</div>",
+    unsafe_allow_html=True
+)
 
 input_text=st.text_input(label="Describe Plot or Keywords")
 
@@ -77,11 +84,3 @@ response=chain.invoke({'movies':context,"query":input_text})
 
 if input_text:
     st.write(response)
-
-st.markdown("---")
-st.markdown(
-    "<div style='text-align: center; color: grey; font-size: 14px;'>"
-    "Developed by <b>Kalavakuri Abhinay</b>"
-    "</div>",
-    unsafe_allow_html=True
-)
