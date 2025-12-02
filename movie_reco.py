@@ -17,8 +17,7 @@ retriver=faiss_index.as_retriever(search_kwargs={"k":50})
 st.title("Movie Recommendation Engine")
 st.caption("A movie recommendation system based on MovieLens dataset powered by Gemini")
 
-
-input_text=st.text_input(label="Describe Plot or Keywords")
+input_text = st.text_input("Search for a movie vibe:", placeholder="e.g., sad romance movies")
 
 results=retriver.invoke(input_text)
 
@@ -71,11 +70,13 @@ output=StrOutputParser()
 
 chain=prompt|llm|output
 
-response=chain.invoke({'movies':context,"query":input_text})
-
-
 if input_text:
-    st.write(response)
+    with st.spinner("Finding recommendations..."):
+        response = chain.invoke({'movies': context, "query": input_text})
+        st.write(response)
+
+else:
+    st.write("👈 Enter a topic above to see recommendations!")
 
 footer = st.container()
 with footer:
