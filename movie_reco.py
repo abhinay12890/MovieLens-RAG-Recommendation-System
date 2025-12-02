@@ -19,15 +19,6 @@ st.caption("A movie recommendation system based on MovieLens dataset powered by 
 
 
 input_text=st.text_input(label="Describe Plot or Keywords")
-footer = st.container()
-with footer:
-    st.markdown("---")
-    st.markdown(
-        "<div style='text-align: center; color: grey; font-size: 14px;'>"
-        "Developed by <b>Kalavakuri Abhinay</b>"
-        "</div>",
-        unsafe_allow_html=True
-    )
 
 results=retriver.invoke(input_text)
 
@@ -90,3 +81,13 @@ response=chain.invoke({'movies':context,"query":input_text})
 
 if input_text:
     st.write(response)
+
+footer = st.container()
+with footer:
+    st.markdown("---")
+    st.markdown(
+        "<div style='text-align: center; color: grey; font-size: 14px;'>"
+        "Developed by <b>Kalavakuri Abhinay</b>"
+        "</div>",
+        unsafe_allow_html=True
+    )
