@@ -76,10 +76,12 @@ response=chain.invoke({'movies':context,"query":input_text})
 if input_text:
     st.write(response)
 
-st.markdown("---")
-st.markdown(
-    "<div style='text-align: center; color: grey; font-size: 14px;'>"
-    "Developed by <b>Kalavakuri Abhinay</b>"
-    "</div>",
-    unsafe_allow_html=True
-)
+footer = st.container()
+with footer:
+    st.markdown("---")
+    st.markdown(
+        "<div style='text-align: center; color: grey; font-size: 14px;'>"
+        "Developed by <b>Kalavakuri Abhinay</b>"
+        "</div>",
+        unsafe_allow_html=True
+    )
