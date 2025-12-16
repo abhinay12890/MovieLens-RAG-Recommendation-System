@@ -14,8 +14,8 @@ faiss_index=FAISS.load_local(folder_path='movielens_final_embeddings',embeddings
 
 retriver=faiss_index.as_retriever(search_kwargs={"k":50})
 
-st.title("Movie Recommendation Engine")
-st.caption("A movie recommendation system based on MovieLens dataset powered by Gemini")
+st.title("🎬 CineSense")
+st.caption("Discover personalized movie recommendations powered by AI and the MovieLens dataset.")
 
 input_text = st.text_input("Search for a movie vibe:", placeholder="e.g., sad romance movies")
 
