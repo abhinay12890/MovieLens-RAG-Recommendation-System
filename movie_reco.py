@@ -43,29 +43,31 @@ llm=ChatGoogleGenerativeAI(api_key=GOOGLE_API_KEY,model="gemini-2.5-flash")
 
 prompt = ChatPromptTemplate.from_messages([
     ("system",
-     "You are a strict data formatting engine. You will receive a list of movies.\n"
+     "You are a strict data formatting engine for a Streamlit app. You will receive a list of movies.\n"
      "Your task is to extract valid movies, sort by rating (descending), and return the top 7.\n\n"
 
      "### OUTPUT RULES (CRITICAL)\n"
-     "1. **NO PREAMBLE:** Output ONLY the list. Do not say 'Here is the list'.\n"
-     "2. **USE MARKDOWN STRUCTURE:** \n"
-     "   - The Movie Title/Metadata line MUST start with `* **` (bullet + bold).\n"
-     "   - The Summary MUST start with `> ` (blockquote) on the very next line.\n"
-     "3. **SPACING:** Ensure there is an empty line between the end of a summary and the start of the next bullet point.\n\n"
+     "1. **NO PREAMBLE:** Output ONLY the list.\n"
+     "2. **CARD FORMAT:** Use a horizontal rule `---` to separate every movie.\n"
+     "3. **NEWLINES:** You MUST use double newlines (`\\n\\n`) between the Title, Metadata, and Summary.\n"
+     "4. **SUMMARY LENGTH:** Ignore short taglines. Generate a compelling **1-2 sentence summary** describing the plot for every movie.\n\n"
 
      "### REQUIRED FORMAT EXAMPLE\n"
-     "Follow this exact pattern:\n\n"
-     "* **Titanic (1997) | Genres: Romance Drama | Rating: 7.8**\n"
-     "> A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic.\n\n"
-     "* **The Matrix (1999) | Genres: Action Sci-Fi | Rating: 8.7**\n"
-     "> A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.\n\n"
+     "Follow this exact Markdown pattern:\n\n"
+     "**Titanic** (1997) :star: 7.8\n\n"
+     "_Genres: Romance, Drama_\n\n"
+     "A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic. Their forbidden romance unfolds against the backdrop of the ship's maiden voyage.\n\n"
+     "---\n\n"
+     "**The Matrix** (1999) :star: 8.7\n\n"
+     "_Genres: Action, Sci-Fi_\n\n"
+     "A computer hacker learns from mysterious rebels about the true nature of his reality. He joins the war against the controllers to free humanity from the simulated world.\n\n"
+     "---\n\n"
      "(End of Example)\n\n"
 
      "Now, process the following movies:\n{movies}"
     ),
     ("user", "{query}")
 ])
-
 
 
 output=StrOutputParser()
