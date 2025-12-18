@@ -10,9 +10,9 @@ GOOGLE_API_KEY=st.secrets["google_api_key"]
 
 embeddings=HuggingFaceEmbeddings(model='sentence-transformers/all-MiniLM-L6-v2')
 
-faiss_index=FAISS.load_local(folder_path='movielens_final_embeddings',embeddings=embeddings,allow_dangerous_deserialization=True)
+faiss_index=FAISS.load_local(folder_path='faiss_index',embeddings=embeddings,allow_dangerous_deserialization=True)
 
-retriver=faiss_index.as_retriever(search_kwargs={"k":50})
+retriver=faiss_index.as_retriever(search_kwargs={"k":15})
 
 st.title("🎬 CineSense")
 st.caption("Discover personalized movie recommendations powered by AI and the MovieLens dataset.")
