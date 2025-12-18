@@ -71,7 +71,7 @@ if input_text:
     with st.spinner("Finding recommendations..."):
         docs=retriever.invoke(input_text)
 
-        movie_context= "\n".join(f"Title: {d.metadata['title']}, " f"Genres: {d.metadata['genres']}," f"Avg. Rating: {d.metadata['rating'].2f}" for d in docs)
+        movie_context= "\n".join(f"Title: {d.metadata['title']}, " f"Genres: {d.metadata['genres']}," f"Avg. Rating: {d.metadata['rating']:.2f}" for d in docs)
         response = chain.invoke({'movies': movie_context, "query": input_text})
         st.markdown(response)
 else:
