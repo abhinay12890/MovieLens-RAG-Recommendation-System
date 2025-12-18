@@ -86,4 +86,4 @@ with footer:
         "</div>",
         unsafe_allow_html=True
     )
-    st.markdown("Based on [MovieLens Dataset](https://grouplens.org/datasets/movielens/latest/)
+    st.markdown("Based on [MovieLens Dataset](https://grouplens.org/datasets/movielens/latest/)")
