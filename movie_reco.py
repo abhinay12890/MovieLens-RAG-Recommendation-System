@@ -28,9 +28,40 @@ retriver=faiss_index.as_retriever(search_kwargs={"k":20})
 llm=load_llm()
 
 # UI
-st.title("🎬 CineSense")
-st.caption("Top 7 AI-recommended movies ranked by average user ratings from [MovieLens Dataset](https://grouplens.org/datasets/movielens/).")
-input_text = st.text_input("Search for a movie vibe:", placeholder="e.g., sad romance movies")
+import streamlit as st
+
+# Custom CSS to center the search bar container and polish the look
+st.markdown("""
+    <style>
+    .stTextInput {
+        width: 70% !important;
+        margin: 0 auto;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+# 1. Centered Header & Caption
+st.markdown(
+    """
+    <div style="text-align: center; padding-bottom: 20px;">
+        <h1 style="font-size: 3.5rem; margin-bottom: 0px;">🎬 CineSense</h1>
+        <p style="font-size: 1.1rem; color: #A0A0A0; margin-top: 10px;">
+            Top 7 cinematic gems • Curated by AI • Powered by <a href="https://grouplens.org/datasets/movielens/" style="color: #55aaff; text-decoration: none;">MovieLens</a>
+        </p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+# 2. Centered Search Input
+# Using columns to help center the text input
+col1, col2, col3 = st.columns([1, 4, 1])
+with col2:
+    input_text = st.text_input(
+        "Search for a movie vibe:", 
+        placeholder="e.g., marvel avengers",
+        label_visibility="collapsed"
+    )
 
 # Prompt
 prompt = ChatPromptTemplate.from_messages([
