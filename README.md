@@ -23,7 +23,6 @@ The goal is to provide natural-language movie recommendations while restricting 
 ```
 ├── movielens_final_embeddings            # directory containing stored faiss index
 ├── MovieLens_RAG_Recommendation_System.ipynb   # Project code (EDA+ Data Cleaning+ Sample RAG)
-├── best_churn_model.pkl                  # Final Trained LightGBM model
 ├── movie_reco.py                         # RAG based Streamlit application
 ├── requirements.txt                      # List of dependencies for the project
 ├── README.md                             # Project documentation (this file)
