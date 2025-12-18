@@ -55,7 +55,7 @@ st.markdown(
 
 # 2. Centered Search Input
 # Using columns to help center the text input
-col1, col2, col3 = st.columns([1, 4, 1])
+col1, col2, col3 = st.columns([1, 10, 1])
 with col2:
     input_text = st.text_input(
         "Search for a movie vibe:", 
