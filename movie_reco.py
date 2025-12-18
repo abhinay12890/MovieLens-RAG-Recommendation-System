@@ -5,29 +5,34 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 import streamlit as st
 
-
+# Configuration
 GOOGLE_API_KEY=st.secrets["google_api_key"]
 
-embeddings=HuggingFaceEmbeddings(model='sentence-transformers/all-MiniLM-L6-v2')
+# Caching heavy resources
+@st.cache_resource
+def load_embeddings():
+    return HuggingFaceEmbeddings(model="sentence-transformers/all-MiniLM-L6-v2")
 
-faiss_index=FAISS.load_local(folder_path='faiss_index',embeddings=embeddings,allow_dangerous_deserialization=True)
+@st.cache_resource
+def load_vectorstore(embeddings):
+    return FAISS.load_local(folder_path="faiss_index",embeddings=embeddings,allow_dangerous_deserialization=True)
 
+@st.cache_resource
+def load_llm():
+    return ChatGoogleGenerativeAI(api_key=GOOGLE_API_KEY,model="gemini-2.5-flash")
+
+# Initialization
+embeddings=load_embeddings()
+faiss_index=load_vectorstore(embeddings)
 retriver=faiss_index.as_retriever(search_kwargs={"k":20})
+llm=load_llm()
 
+# UI
 st.title("🎬 CineSense")
 st.caption("Discover personalized movie recommendations powered by AI and the MovieLens dataset.")
-
 input_text = st.text_input("Search for a movie vibe:", placeholder="e.g., sad romance movies")
 
-results=retriver.invoke(input_text)
-
-ans=""
-for x in results:
-    ans+= f"Title: {x.metadata['title']}, Genres: {x.metadata['genres']}, Avg. Rating: {x.metadata['rating']:.2f}"+ "\n"
-
-
-llm=ChatGoogleGenerativeAI(api_key=GOOGLE_API_KEY,model="gemini-2.5-flash")
-
+# Prompt
 prompt = ChatPromptTemplate.from_messages([
     ("system",
      "You are a strict data formatting engine for a Streamlit app. You will receive a list of movies.\n"
@@ -56,6 +61,7 @@ prompt = ChatPromptTemplate.from_messages([
     ("user", "{query}")
 ])
 
+results=retriver.invoke(input_text)
 
 output=StrOutputParser()
 
@@ -63,8 +69,11 @@ chain=prompt|llm|output
 
 if input_text:
     with st.spinner("Finding recommendations..."):
-        response = chain.invoke({'movies': ans, "query": input_text})
-        st.write(response)
+        docs=retriever.invoke(input_text)
+
+        movie_context= "\n".join(f"Title: {d.metadata['title']}, " f"Genres: {d.metadata['genres']}," f"Avg. Rating: {d.metadata['rating'].2f}" for d in docs)
+        response = chain.invoke({'movies': movie_context, "query": input_text})
+        st.markdown(response)
 else:
     pass
 
