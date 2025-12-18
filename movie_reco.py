@@ -12,7 +12,7 @@ embeddings=HuggingFaceEmbeddings(model='sentence-transformers/all-MiniLM-L6-v2')
 
 faiss_index=FAISS.load_local(folder_path='faiss_index',embeddings=embeddings,allow_dangerous_deserialization=True)
 
-retriver=faiss_index.as_retriever(search_kwargs={"k":15})
+retriver=faiss_index.as_retriever(search_kwargs={"k":20})
 
 st.title("🎬 CineSense")
 st.caption("Discover personalized movie recommendations powered by AI and the MovieLens dataset.")
@@ -21,22 +21,9 @@ input_text = st.text_input("Search for a movie vibe:", placeholder="e.g., sad ro
 
 results=retriver.invoke(input_text)
 
-unique_movies={}
-
+ans=""
 for x in results:
-    mid=x.metadata["movie_id"]
-    if mid not in unique_movies:
-        unique_movies[mid]=x.metadata
-unique_movies=list(unique_movies.values())
-
-context=""
-for x in unique_movies:
-    for key,value in x.items():
-        if key in ["Title","Genres"]:
-            context+=f"{key}:{value};"
-        elif key=="Rating":
-            context+=f"{key}:{value}\n"
-
+    ans+= f"Title: {x.metadata['title']}, Genres: {x.metadata['genres']}, Avg. Rating: {x.metadata['rating']:.2f}"+ "\n"
 
 
 llm=ChatGoogleGenerativeAI(api_key=GOOGLE_API_KEY,model="gemini-2.5-flash")
@@ -76,7 +63,7 @@ chain=prompt|llm|output
 
 if input_text:
     with st.spinner("Finding recommendations..."):
-        response = chain.invoke({'movies': context, "query": input_text})
+        response = chain.invoke({'movies': ans, "query": input_text})
         st.write(response)
 else:
     pass
