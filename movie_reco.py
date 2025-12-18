@@ -29,7 +29,7 @@ llm=load_llm()
 
 # UI
 st.title("🎬 CineSense")
-st.caption("Discover personalized movie recommendations powered by AI and the MovieLens dataset.")
+st.caption("Top 7 AI-recommended movies ranked by average user ratings from the MovieLens dataset.")
 input_text = st.text_input("Search for a movie vibe:", placeholder="e.g., sad romance movies")
 
 # Prompt
@@ -86,3 +86,4 @@ with footer:
         "</div>",
         unsafe_allow_html=True
     )
+    st.markdown("Based on [MovieLens Dataset](https://grouplens.org/datasets/movielens/latest/)
