@@ -28,12 +28,12 @@ This version focuses on:
 ---
 ## File Structure 
 ```
-├── archive/                                     # directory containing stored faiss index
-  ├── movielens_rag_system_v1.ipynb              # v1 of this Project code (EDA+ Data Cleaning+ Sample RAG) covering 50k movies 
-├── faiss_index/                                 # directory containing stored faiss index of current version
+├── archive/                              # directory containing stored faiss index
+  ├── movielens_rag_system_v1.ipynb       # v1 of this Project code (EDA+ Data Cleaning+ Sample RAG) covering 50k movies 
+├── faiss_index/                          # directory containing stored faiss index of current version
   ├── index.faiss
   ├── index.pkl
-├── movielens_rag_v2.ipynb                       # V2 of project covering 70k+ titles along with RAG Evaluation
+├── movielens_rag_v2.ipynb                # V2 of project covering 70k+ titles along with RAG Evaluation
 ├── movie_reco.py                         # RAG based Streamlit application
 ├── requirements.txt                      # List of dependencies for the project
 ├── README.md                             # Project documentation (this file)
