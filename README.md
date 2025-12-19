@@ -108,9 +108,9 @@ Ground truth size statistics:
 ---
 ## Final RAG Evaluation Metrics
 
-| Recall@100  = 0.0139 | Precision@100 = 0.9059 | MRR = 0.9179
-| Recall@300  = 0.0411 | Precision@300 = 0.8891 | MRR = 0.9179
-| Recall@500  = 0.0669 | Precision@500 = 0.8780 | MRR = 0.9179
+| Recall@100  = 0.0139 | Precision@100 = 0.9059 | MRR = 0.9179|
+| Recall@300  = 0.0411 | Precision@300 = 0.8891 | MRR = 0.9179|
+| Recall@500  = 0.0669 | Precision@500 = 0.8780 | MRR = 0.9179|
 Queries evaluated: 44
 
 **Observations**
