@@ -92,8 +92,6 @@ prompt = ChatPromptTemplate.from_messages([
     ("user", "{query}")
 ])
 
-results=retriver.invoke(input_text)
-
 output=StrOutputParser()
 
 chain=prompt|llm|output
